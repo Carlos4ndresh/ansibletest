@@ -8,4 +8,4 @@ db = SQLAlchemy(app)
 
 db.create_all()
 
-from app import routes, models
+from app import routes, models, errors

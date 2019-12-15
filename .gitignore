@@ -1,5 +1,7 @@
 /pyansible/
 *.pyc
-__pycache__/
 .DS_Store
 .idea
+.vscode
+__pycache__/
+app/__pycache__/
