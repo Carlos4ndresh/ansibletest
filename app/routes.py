@@ -9,9 +9,8 @@ def index():
         name = request.form.get('name')
         favorite_color = request.form.get('color')
         cat_or_dog = request.form.get('animal')
-        entry = models.Preferences(name=name, favorite_color= favorite_color, cat_or_dog=cat_or_dog)
+        entry = models.Preferences(name=name, favorite_color=favorite_color, cat_or_dog=cat_or_dog)
         db.session.add(entry)
         db.session.commit()
-    
-    user = {'username': 'Miguel'}
-    return render_template('index.html', title='Home', user=user)
+    prefs = models.Preferences.query.all()
+    return render_template('index.html', preferences=prefs)

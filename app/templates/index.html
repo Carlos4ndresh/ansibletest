@@ -1,9 +1,41 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A User</title>
+</head>
+<body>
 <html>
-    <head>
-        <title>{{ title }} - Microblog</title>
-    </head>
-    <body>
-        <h1>Hello, {{ user.username }}!</h1>
-    </body>
+  <body>
+    <h1>Add Preferences</h1>
+    <form action="/" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+        <label for="color">Color:</label>
+        <input type="text" name="color" id="color" required>
+        <label for="animal">Animal:</label>
+        <select name="animal" id="animal" required>
+            <option value="cats">Cats</option>
+            <option value="dogs">Dogs</option>
+        </select>
+        <input type="submit" value="Add">
+    </form>
+
+    <h1>Preferences</h1>
+    <table>
+      {% for pref in preferences %}
+        <tr>
+          <td>
+            {{pref.name}}
+          </td>
+          <td>
+              {{ pref.favorite_color }}
+          </td>
+          <td>
+              {{ pref.cat_or_dog }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
 </html>

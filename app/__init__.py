@@ -6,4 +6,6 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
+db.create_all()
+
 from app import routes, models
