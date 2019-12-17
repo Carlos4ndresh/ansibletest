@@ -1,23 +1,42 @@
 ---
 # These tasks install http and the php modules.
 
-- name: Install Gunicorn
+- name: Install nginx
   yum: name={{ item }} state=present
   with_items:
-   - httpd
-   - git
-   - gunicorn
-   - libsemanage-python
-   - libselinux-python
+    - nginx
 
-- name: insert iptables rule for httpd
-  lineinfile: dest=/etc/sysconfig/iptables create=yes state=present regexp="{{ httpd_port }}" insertafter="^:OUTPUT "
-              line="-A INPUT -p tcp  --dport {{ httpd_port }} -j  ACCEPT"
-  notify: restart iptables
+# - name: insert iptables rule for httpd
+#   lineinfile:
+#     dest=/etc/sysconfig/iptables create=yes state=present regexp="{{ nginx_port }}" insertafter="^:OUTPUT "
+#     line="-A INPUT -p tcp  --dport {{ nginx_port }} -j  ACCEPT"
+#   notify: restart iptables
+- name: Insert firewalld rule for http
+  firewalld:
+    zone: public
+    permanent: yes
+    service: http
+    state: enabled
+  notify: restart firewall
 
-- name: http service state
-  service: name=httpd state=started enabled=yes
+- name: Insert firewalld rule for https
+  firewalld:
+    zone: public
+    permanent: yes
+    service: https
+    state: enabled
+  notify: restart firewall
+
+- name: nginx service state
+  service: name=nginx state=started enabled=yes
 
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
   when: sestatus.rc != 0
+
+- name: Add the user 'app'
+  user:
+    name: app
+    comment: user of the app
+    group: app
+    home: /app/src
