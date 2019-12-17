@@ -1,3 +1,7 @@
 - name: restart firewall
   service: name=firewalld state=restarted
   become: yes
+
+- name: restart nginx
+  service: name=nginx state=restarted
+  become: yes
