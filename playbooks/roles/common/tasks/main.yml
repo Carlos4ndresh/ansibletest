@@ -2,9 +2,11 @@
   command: getenforce
   register: sestatus
   changed_when: false
+  become: yes
 
 - name: Update Packages
   yum: name=* state=latest
+  become: yes
 
 - name: Install Common packages
   yum: name={{ item }} state=present
@@ -14,3 +16,4 @@
     - firewalld
     - python3-libsemanage
     - python3-libselinux
+  become: yes

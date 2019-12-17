@@ -3,18 +3,22 @@
   with_items:
     - mysql-server
     - mysql-*
+  become: yes
 
 - name: Configure SELinux to start mysql on any port
   seboolean: name=mysql_connect_any state=true persistent=yes
   when: sestatus.rc != 0
+  become: yes
 
 - name: Create Mysql configuration file
   template: src=my.cnf.j2 dest=/etc/my.cnf
   notify:
     - restart mysql
+  become: yes
 
 - name: Start Mysql Service
   service: name=mysqld state=started enabled=yes
+  become: yes
 
 - name: Insert mysql firewall rule
   firewalld:
@@ -23,15 +27,20 @@
     port: "{{ mysql_port }}/tcp"
     state: enabled
   notify: restart firewall
-
+  become: yes
 
 - name: Make sure pymysql is present
   pip:
     name: pymysql
     state: present
+  become: yes
 
 - name: Create Application Database
   mysql_db: name={{ dbname }} state=present
+  become: yes
+
 
 - name: Create Application DB User
   mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL host='%' state=present
+  become: yes
+

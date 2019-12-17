@@ -5,9 +5,11 @@
   file:
     path: /app/src
     state: directory
-
+    group: app
+    owner: app
+  become: yes
 
 - name: Copy the code from repository
+  become: yes
+  become_user: app
   git: repo={{ repository }} dest=/app/src
-# - name: Creates the index.php file
-#   template: src=index.php.j2 dest=/var/www/html/index.php

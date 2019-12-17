@@ -5,6 +5,7 @@
   yum: name={{ item }} state=present
   with_items:
     - nginx
+  become: yes
 
 # - name: insert iptables rule for httpd
 #   lineinfile:
@@ -18,6 +19,7 @@
     service: http
     state: enabled
   notify: restart firewall
+  become: yes
 
 - name: Insert firewalld rule for https
   firewalld:
@@ -26,17 +28,19 @@
     service: https
     state: enabled
   notify: restart firewall
+  become: yes
 
 - name: nginx service state
   service: name=nginx state=started enabled=yes
+  become: yes
 
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
   when: sestatus.rc != 0
+  become: yes
 
 - name: Add the user 'app'
   user:
     name: app
     comment: user of the app
-    group: app
-    home: /app/src
+  become: yes

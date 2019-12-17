@@ -3,9 +3,6 @@
 - name: apply common configuration to all nodes
   hosts: all
   remote_user: ec2-user
-  become: yes
-  become_user: root
-  become_method: sudo
   vars_files:
     - ./global_vars/all.yml
 
@@ -15,9 +12,6 @@
 - name: configure and deploy the webservers and application code
   hosts: webservers
   remote_user: ec2-user
-  become: yes
-  become_user: root
-  become_method: sudo
   vars_files:
     - ./global_vars/all.yml
 
@@ -27,9 +21,6 @@
 - name: deploy MySQL and configure the databases
   hosts: dbservers
   remote_user: ec2-user
-  become: yes
-  become_user: root
-  become_method: sudo
   vars_files:
     - ./global_vars/all.yml
     - ./global_vars/dbserver.yml
