@@ -27,3 +27,29 @@
     chdir: /app/src
     requirements: requirements.txt
     extra_args: "--user app"
+
+
+# - name: Copy systemd script into /etc/systemd
+#   template: src=../templates/upstart_config dest=/etc/systemd/system/gunicorn.service
+#   become: yes 
+
+# - name: Copy socket file into /etc/systemd
+#   template: src=../templates/gunicorn_socket dest=/etc/systemd/system/gunicorn.socket
+#   become: yes 
+
+# - name: Add tempfile
+#   lineinfile:
+#     path: /etc/tmpfiles.d/gunicorn.conf
+#     line: d /run/gunicorn 0755 app nginx -
+#     create: yes
+#   become: yes
+
+# - name: Restart the app upstart job
+#   service: name=gunicorn state=restarted
+#   become: yes
+- name: Run Gunicorn
+  become: yes
+  become_user: app
+  shell:
+    cmd: nohup /home/app/.local/bin/gunicorn -b :8080 catsordogs:app &
+    chdir: /app/src
