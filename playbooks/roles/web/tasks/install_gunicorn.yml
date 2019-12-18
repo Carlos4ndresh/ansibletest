@@ -62,8 +62,9 @@
 
 - name: Insert/Update env variables at os level
   blockinfile:
-    path: /etc/ssh/sshd_config
+    path: /etc/environment
     block: |
       FLASK_APP=catsordogs.py
-      SQLALCHEMY_DATABASE_URI=mysql+pymysql://myuser:mypwd@ec2-34-219-161-47.us-west-2.compute.amazonaws.com:3306/mydb
+      SQLALCHEMY_DATABASE_URI={{SQLALCHEMY_DATABASE_URI}}
       FLASK_ENV=production
+  become: yes

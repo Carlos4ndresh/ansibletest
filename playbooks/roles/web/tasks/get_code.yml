@@ -14,11 +14,16 @@
   become_user: app
   git: repo={{ repository }} dest=/app/src
 
+- name: Install virtualenv via pip
+  pip:
+    name: virtualenv
+    executable: pip3
+  become: yes
+
 - name: install requirements
   become: yes
   become_user: app
   pip:
     chdir: /app/src
     requirements: requirements.txt
-    virtualenv: /env
     extra_args: "--user app"
