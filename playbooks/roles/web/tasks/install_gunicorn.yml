@@ -41,7 +41,7 @@
     zone: public
     permanent: yes
     port: 8080/tcp
-    state: enabled
+    state: disabled
   notify: restart firewall
   become: yes 
 
@@ -52,6 +52,13 @@
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
   when: sestatus.rc != 0
+  become: yes
+
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
   become: yes
 
 - name: Add the user 'app'

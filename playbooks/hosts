@@ -1,5 +1,5 @@
 [webservers]
-ec2-34-219-116-112.us-west-2.compute.amazonaws.com
+ec2-34-217-100-7.us-west-2.compute.amazonaws.com
 
 [dbservers]
-ec2-34-222-135-53.us-west-2.compute.amazonaws.com
+ec2-52-24-136-150.us-west-2.compute.amazonaws.com
