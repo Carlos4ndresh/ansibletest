@@ -22,7 +22,7 @@
 
 - name: Insert mysql firewall rule
   firewalld:
-    zone: trusted
+    zone: public
     permanent: yes
     port: "{{ mysql_port }}/tcp"
     state: enabled
@@ -39,8 +39,6 @@
   mysql_db: name={{ dbname }} state=present
   become: yes
 
-
 - name: Create Application DB User
   mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL host='%' state=present
   become: yes
-

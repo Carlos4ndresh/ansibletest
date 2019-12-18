@@ -7,6 +7,16 @@
     - nginx
   become: yes
 
+- name: Create a new default file for nginx
+  template: src=../templates/nginx_default_conf.j2 dest=/etc/nginx/nginx.conf
+  notify: restart nginx
+  become: yes
+
+
+- name: Create a new default file for nginx
+  template: src=../templates/nginx_config.j2 dest=/etc/nginx/conf.d/default.conf
+  notify: restart nginx
+  become: yes
 
 - name: Insert firewalld rule for http
   firewalld:
@@ -26,6 +36,15 @@
   notify: restart firewall
   become: yes
 
+- name: Insert firewalld rule for 8080 tests
+  firewalld:
+    zone: public
+    permanent: yes
+    port: 8080/tcp
+    state: enabled
+  notify: restart firewall
+  become: yes 
+
 - name: nginx service state
   service: name=nginx state=started enabled=yes
   become: yes
@@ -41,7 +60,10 @@
     comment: user of the app
   become: yes
 
-- name: Create a new default file for nginx
-  template: src=../templates/nginx_config.j2 dest=/etc/nginx/conf.d/default.conf
-  notify: restart nginx
-  become: yes
+- name: Insert/Update env variables at os level
+  blockinfile:
+    path: /etc/ssh/sshd_config
+    block: |
+      FLASK_APP=catsordogs.py
+      SQLALCHEMY_DATABASE_URI=mysql+pymysql://myuser:mypwd@ec2-34-219-161-47.us-west-2.compute.amazonaws.com:3306/mydb
+      FLASK_ENV=production
