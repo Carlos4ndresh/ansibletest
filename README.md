@@ -42,7 +42,7 @@ This is a small app written in Flask (1.11.x/Python 3.x) using MySQL 8 as a data
 	SQLALCHEMY_DATABASE_URI: mysql+pymysql://myuser:mypwd@ec2-34-219-92-44.us-west-2.compute.amazonaws.com:3306/mydb
 	~~~~~~
 		
-	Yes it’s insecure, but for the effects of the demo it’s OK. And, the EC2 security group shouldn’t allow connections to the database from the public internet, just the web servers’s security group
+	It’s insecure, but for the effects of the demo it’s OK. And, the EC2 security group shouldn’t allow connections to the database from the public internet, just the web servers’s security group
 	
 - Afterwards, in a terminal export the following variable:
 	`export ANSIBLE_HOST_KEY_CHECKING=False`
