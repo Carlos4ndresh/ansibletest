@@ -6,4 +6,4 @@ nginx_port: 80
 # GitHub Repository
 repository: https://github.com/Carlos4ndresh/ansibletest.git
 ## Change Here the portion between the "@"" for the DNS name of the DBServer and the ":"
-SQLALCHEMY_DATABASE_URI: mysql+pymysql://myuser:mypwd@ec2-52-24-136-150.us-west-2.compute.amazonaws.com:3306/mydb
+SQLALCHEMY_DATABASE_URI: mysql+pymysql://myuser:mypwd@ec2-34-219-92-44.us-west-2.compute.amazonaws.com:3306/mydb
