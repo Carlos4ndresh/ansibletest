@@ -11,18 +11,18 @@ This is a small app written in Flask (1.11.x/Python 3.x) using MySQL 8 as a data
 ## Deployment of the demo
 	* First clone this repo to your local environment
 	* Edit the **hosts** file inside the *playbooks* folder
-	![](Ansible%20Demo%20App/45B85602-9CB2-452E-9F5E-A6450D2962CB.png)
-	* 	There add the web servers (could be one or many) and the db-server you will use to deploy (only one DBserver should be created, you could create and provision another one, but they won’t work as a cluster)
+	
+
+	* 	There add the web servers (could be one or many) and the db-server you will use to deploy (only one DBserver should be created, you 	could create and provision another one, but they won’t work as a cluster)
 	* Then, still inside the *playbooks* folder, go to the *global_vars* folder and then the **all.yml** file and change:
 		* The location of the ansible_ssh_private_key, to the location of your private key, that will be used to connect to the servers in the inventory
 		* Change the SQLALCHEMY_DATABASE_URI variable in the part corresponding to the DBServer
 	
-![](Ansible%20Demo%20App/A27FF2A9-0924-43E7-890A-DF60A0C05A7F.png)
 
 		* If you would like to change the mysqlpassword you could do it here, and then in the **dbserver.yml** file in the same folder
 		
-		![](Ansible%20Demo%20App/DC3C9020-1898-4E81-87E5-F10735F2EDD0.png)
-Yes it’s insecure, but for the effects of the demo it’s OK. And also 			the EC2 security group shouldn’t allow connections to the database from the public internet, just the web servers’s security group
+		
+		Yes it’s insecure, but for the effects of the demo it’s OK. And, the EC2 security group shouldn’t allow connections to the database from the public internet, just the web servers’s security group
 	
 	* Then, in a terminal export the following variable:
 	`export ANSIBLE_HOST_KEY_CHECKING=False`
@@ -35,7 +35,7 @@ Yes it’s insecure, but for the effects of the demo it’s OK. And also 			the 
 	* 	Wait until the process is over and use the public DNS of the web server(s) to access the Demo app!
 	
 	
-	![](Ansible%20Demo%20App/11584CD6-4F9B-4AEA-B47E-EACB5D11B902.png)
+
 
 
 ### If you are going to use the Terraform Scripts
@@ -49,7 +49,7 @@ Yes it’s insecure, but for the effects of the demo it’s OK. And also 			the 
 
 	* Wait until the resources are created and then copy the EC2s DNS names from the final output; then go to the *playbooks* folder and edit the **hosts** file like this (only one DBserver should be created, you could create and provision another one, but they won’t work as a cluster):
 	
-	![](Ansible%20Demo%20App/45B85602-9CB2-452E-9F5E-A6450D2962CB.png)
+	
 	* Then you can continue with the rest of the points
 
 
