@@ -60,7 +60,7 @@ This is a small app written in Flask (1.11.x/Python 3.x) using MySQL 8 as a data
 - Install Ansible: [Installation Guide — Ansible Documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-the-control-node)
 - You must have installed and configured the AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
 - Ensure that your AWS User has the proper permissions to create, modify, delete resources
-- In the repo, navigate to the **terraform folder** and run `terraform init`, wait until this finishes successfully and then run `terraform plan`; and if everything is OK, then execute `terraform apply` and respond « yes » to the confirmation. Here you must provide the *vpc_id*, *subnet_id* (With internet access, and DNS and DHCP enabled) where the EC2s will be and the *keypair* to connect to them, for example:
+- In the repo, navigate to the **terraform folder** and run `terraform init`, wait until this finishes successfully and then run `terraform plan`; and if everything is OK, then execute `terraform apply` and respond « yes » to the confirmation. Here you must provide the *vpc_id*, *subnet_id* (With internet access, DNS and DHCP enabled) where the EC2s will be and the *keypair* to connect to them, for example:
 
 	~~~~~
 	terraform plan
